@@ -1,25 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      count: 0
-    };
-  }
+const App = () => {
+  const [catFacts, setCatFacts] = useState(null);
 
-  increment = () => {
-    this.setState({ count: this.state.count + 1 });
+  const fetchCatFacts = () => {
+    fetch('https://catfact.ninja/fact')
+      .then(response => response.json())
+      .then(data => setCatFacts(data.fact))
   };
 
-  render() {
-    return (
-      <div>
-        <span>{this.state.count}</span>
-        <button onClick={this.increment}>Click</button>
-      </div>
-    );
-  }
+  useEffect(() => {
+    fetchCatFacts();
+  }, []);
+
+  const handleOnClick = () => {
+    fetchCatFacts();
+  };
+  
+  return (
+    <>
+    <p>{catFacts}</p>
+    <button onClick={handleOnClick}>More</button>
+    </>
+  );
 }
 
 export default App;
