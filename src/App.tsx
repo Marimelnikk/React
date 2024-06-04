@@ -13,14 +13,10 @@ const App = () => {
     fetchCatFacts();
   }, []);
 
-  const handleOnClick = () => {
-    fetchCatFacts();
-  };
-  
   return (
     <>
     <p>{catFacts}</p>
-    <button onClick={handleOnClick}>More</button>
+    <button onClick={() => fetchCatFacts()}>More</button>
     </>
   );
 }
